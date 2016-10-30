@@ -76,10 +76,12 @@
 							    <div class="clear">
 							    <input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
 
-							     <div id="subscribe-result" style="padding-top:5px">
+							     <div id="subscribe" style="padding-top:5px">
 		    					</div>
 	    					</div>
 					    </div>
+					    <div id="subscribe-result" style="padding-top:5px">
+		    					</div>
 
 					</form>
 
@@ -116,7 +118,7 @@
                     $resultElement.html(error);
                     $resultElement.css("color", "red");
                 } else {
-                    $resultElement.css("color", "black");
+                    $resultElement.css("color", "white");
                     $resultElement.html("Subscribing...");
                     submitSubscribeForm($form, $resultElement);
                 }
@@ -149,19 +151,21 @@
                     // According to jquery docs, this is never called for cross-domain JSONP requests
                 },
                 success: function(data){
-                	console.log(data);
                     if (data.result != "success") {
                         var message = data.msg || "Sorry. Unable to subscribe. Please try again later.";
                         $resultElement.css("color", "red");
                         if (data.msg && data.msg.indexOf("already subscribed") >= 0) {
                             message = "You're already subscribed. Thank you.";
-                            $resultElement.css("color", "black");
+                            $resultElement.css("color", "white");
+
                         }
                         $resultElement.html(message);
                     } else {
-                        $resultElement.css("color", "black");
+                        $resultElement.css("color", "white");
                         $resultElement.html("Thank you!<br>You must confirm the subscription in your inbox.");
+                        $("#mc_embed_signup_scroll").hide();
                     }
+
                 }
             });
         }
